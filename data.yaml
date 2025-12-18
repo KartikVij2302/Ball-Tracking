@@ -1,0 +1,12 @@
+# data.yaml
+# The absolute path to your project root in WSL
+train: C:/Users/Admin/Ball-Tracking/images/train
+
+
+# The relative paths from 'path' to your image folders
+train: archive/cricket_ball_data/train/images
+val: archive/cricket_ball_data/train/images  # Using train as val for now
+
+# Classes
+names:
+  0: cricket_ball
