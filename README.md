@@ -8,10 +8,10 @@
 To build a robust, reproducible computer vision system that detects and tracks a **cricket ball** in match videos recorded from a **static camera**, producing:
 
 - Per-frame ball centroid annotations (`frame, x, y, visible`)
-- Processed videos with the trajectory overlay
+- Processed videos without the trajectory overlay
 - Code, model, and results for evaluation and replication
 
-This system addresses challenges like:
+This system TRIES to addresses challenges like:
 - Motion blur due to fast-moving balls
 - Variable ball color (white or red)
 - Missed detections due to occlusion or low contrast
