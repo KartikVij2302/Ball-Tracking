@@ -1,108 +1,11 @@
-# import cv2
-# import argparse
-# import pandas as pd
-# import os
 
-# from utils import resize_frame, draw_trajectory
-# from track import SimpleTracker
-
-# def detect_ball(gray):
-#     """
-#     Detect ball using HoughCircles
-#     Returns list of (x, y)
-#     """
-#     circles = cv2.HoughCircles(
-#         gray,
-#         cv2.HOUGH_GRADIENT,
-#         dp=1.2,
-#         minDist=20,
-#         param1=50,
-#         param2=30,
-#         minRadius=3,
-#         maxRadius=40
-#     )
-
-#     detections = []
-#     if circles is not None:
-#         circles = circles[0]
-#         for x, y, r in circles:
-#             detections.append((int(x), int(y)))
-
-#     return detections
-
-# def main():
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument("--input_video", type=str, required=True)
-#     parser.add_argument("--output_csv", type=str, default="annotations/output.csv")
-#     parser.add_argument("--output_video", type=str, default="results/output.mp4")
-#     args = parser.parse_args()
-
-#     os.makedirs("annotations", exist_ok=True)
-#     os.makedirs("results", exist_ok=True)
-
-#     cap = cv2.VideoCapture(args.input_video)
-#     if not cap.isOpened():
-#         print("Error opening video")
-#         return
-
-#     fps = cap.get(cv2.CAP_PROP_FPS)
-#     ret, frame = cap.read()
-#     frame = resize_frame(frame)
-#     h, w = frame.shape[:2]
-
-#     fourcc = cv2.VideoWriter_fourcc(*"mp4v")
-#     out = cv2.VideoWriter(args.output_video, fourcc, fps, (w, h))
-
-#     tracker = SimpleTracker()
-#     trajectory = []
-#     rows = []
-
-#     frame_idx = 0
-
-#     while True:
-#         ret, frame = cap.read()
-#         if not ret:
-#             break
-
-#         frame = resize_frame(frame)
-#         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-#         gray = cv2.GaussianBlur(gray, (5, 5), 0)
-
-#         detections = detect_ball(gray)
-#         center = tracker.update(detections)
-
-#         if center is not None:
-#             x, y = center
-#             rows.append([frame_idx, x, y, 1])
-#             trajectory.append((x, y))
-#             cv2.circle(frame, (x, y), 4, (0, 255, 0), -1)
-#         else:
-#             rows.append([frame_idx, -1, -1, 0])
-#             trajectory.append(None)
-
-#         draw_trajectory(frame, trajectory)
-#         out.write(frame)
-
-#         frame_idx += 1
-
-#     cap.release()
-#     out.release()
-
-#     df = pd.DataFrame(rows, columns=["frame", "x", "y", "visible"])
-#     df.to_csv(args.output_csv, index=False)
-
-#     print("Done!")
-#     print("CSV saved to:", args.output_csv)
-#     print("Video saved to:", args.output_video)
-
-# if __name__ == "__main__":
-#     main()
 
 import cv2
 import numpy as np
 import pandas as pd
 from ultralytics import YOLO
 import os
+
 
 class KalmanTracker:
     """
@@ -181,7 +84,7 @@ def run_test_inference(video_name):
 
         # 5. VISUAL OVERLAY (Single Dot Only)
         # Draw only the current ball position as a solid green dot
-        cv2.circle(frame, (final_x, final_y), 6, (0, 255, 0), -1)
+        cv2.circle(frame, (final_x, final_y), 9, (0, 255, 0), -1)
         
         # 6. DATA RECORDING
         results_list.append([frame_idx, round(float(final_x), 1), round(float(final_y), 1), visible])
