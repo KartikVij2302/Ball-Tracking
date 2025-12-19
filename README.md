@@ -1,8 +1,6 @@
-Here’s a complete `report.md` in markdown format, based on your training + inference code. It documents the objective, model choices, system design, tracking logic, and assumptions — and is ready to be included in your GitHub repo:
 
----
 
-```markdown
+
 # Cricket Ball Tracking System – Report
 
 ## 🎯 Objective
@@ -22,7 +20,7 @@ This system addresses challenges like:
 
 ## 📦 Repository Structure
 
-```
+
 
 Ball-Tracking/
 │
@@ -34,14 +32,15 @@ Ball-Tracking/
 │   └── 25_nov_2025/               # Testing videos (2.mov to 15.mov)
 │
 ├── cricket_ball_tracker/
-│   └── v1_motion_blur_fix/       # Trained YOLOv8 model + weights
+│   └── v1_motion_blur_fix/        # Trained YOLOv8 model + weights
 │
-├── annotations/                  # CSV files (frame,x,y,visible)
-├── results2/                     # Annotated output videos
-├── requirements.txt
-└── report.md                     # This file
+├── annotations/                   # CSV files (frame,x,y,visible)
+├── results2/                      # Annotated output videos
+├── requirements.txt               # Python dependencies
+└── report.md                      # Project report (modeling, tracking, limitations)
 
-````
+
+
 
 ---
 
@@ -205,13 +204,13 @@ for i in range(2, 16):
 3. Train model (optional):
 
    ```bash
-   python code/train_yolo.py
+   python code/train.py
    ```
 
 4. Run inference:
 
    ```bash
-   python code/inference_tracker.py
+   python code/inference.py
    ```
 
 ---
@@ -222,8 +221,8 @@ for i in range(2, 16):
 * `results2/`: processed MP4s
 * `cricket_ball_tracker/.../best.pt`: trained YOLOv8 model
 * `data.yaml`: defines image path, class label
-* `train_yolo.py`: model training script
-* `inference_tracker.py`: test video evaluation
+* `train.py`: model training script
+* `inference.py`: test video evaluation
 
 ---
 
